@@ -5,17 +5,24 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\CandidateType;
+use App\Form\ChangePasswordType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(EntityManagerInterface $entityManager, Request $request, FileUploader $fileUploader): Response
+    public function index(
+        EntityManagerInterface $entityManager, 
+        Request $request, 
+        FileUploader $fileUploader,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response
     {
         /** @var User */
         $user = $this->getUser();
@@ -66,13 +73,28 @@ final class ProfileController extends AbstractController
             $this->addFlash('success', 'Profile updated successfully');
         }
 
+        // Create and handle password change form
+        $passwordForm = $this->createForm(ChangePasswordType::class);
+        $passwordForm->handleRequest($request);
 
+        if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
+            $newPassword = $passwordForm->get('newPassword')->getData();
+            
+            $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+            $user->setPassword($hashedPassword);
+            
+            $entityManager->persist($user);
+            $entityManager->flush();
 
+            $this->addFlash('success', 'Password updated successfully');
+            
+            return $this->redirectToRoute('app_profile');
+        }
 
         return $this->render('profile/index.html.twig', [
             'form' => $formCandidate->createView(),
+            'passwordForm' => $passwordForm->createView(),
             'candidate' => $candidate,
-
         ]);
     }
 }
