@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block styleCustom %}
 	<style>
 		select {
@@ -10,9 +11,67 @@
 		.boxshadow {
 			box-shadow: none !important;
 		}
+
+		/* Style pour les selects et inputs date */
+		select.form-control,
+		input[type="date"] {
+			border: none;
+			border-bottom: 1px solid #9b9b9b;
+			border-radius: 0;
+			outline: none;
+			height: 3rem;
+			font-size: 14px !important;
+			padding: 0;
+			box-shadow: none;
+			box-sizing: content-box;
+			transition: all 0.3s;
+			background-color: transparent;
+		}
+
+		/* Style au focus */
+		select.form-control:focus,
+		input[type="date"]:focus {
+			border-bottom: 1px solid #9b9b9b;
+			box-shadow: 0 1px 0 0 #9b9b9b;
+		}
+
+		/* Style pour les labels */
+		.input-field label {
+			font-size: 14px;
+			color: #9b9b9b;
+		}
+
+		/* Style pour les labels au focus */
+		.input-field input[type="date"]:focus + label,
+		.input-field select:focus + label {
+			color: #9b9b9b !important;
+		}
+
+		/* Style pour le select pays */
+		select.form-control option {
+			color: #9b9b9b;
+			background: #fff;
+			padding: 5px;
+		}
+		.input-field label {
+			font-size: 14px;
+			color: #9b9b9b;
+			transform: translateY(-14px); /* Déplace le label vers le haut */
+			pointer-events: none; /* Evite les problèmes de clic */
+		}
+
+		/* Ajustement des marges pour éviter la superposition */
+		.input-field {
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+		}
+
+		/* S'assurer que le label reste en haut quand le champ est rempli */
+		.input-field input[type="date"]:not(:placeholder-shown) + label,
+		.input-field select:not(:placeholder-shown) + label {
+			transform: translateY(-14px);
+		}
 	</style>
-
-
 {% endblock %}
 
 
@@ -44,7 +103,7 @@
 					<h4>
 						<img src="{{ asset('img/s9bPVaK.gif') }}" style="height: 80px; width: 201px;">
 						&nbsp;
-																																				                            &nbsp; Hooray ! Your profile is complete.
+																																																                            &nbsp; Hooray ! Your profile is complete.
 					</h4>
 					<div class="c100 p100 small complete ">
 						<span>100%</span>
@@ -92,7 +151,7 @@
 					<div
 						class="input-field">
 						{# <input type="text" class="form-control" name="first_name" id="first_name" value="" >
-																															<label for="first_name">First name</label> #}
+																																											<label for="first_name">First name</label> #}
 						{{ form_widget(form.firstName) }}
 						{{ form_label(form.firstName) }}
 						{{ form_errors(form.firstName) }}
@@ -104,7 +163,7 @@
 					<div
 						class="input-field">
 						{# <input type="text" class="form-control" name="last_name" id="last_name" value="">
-																								<label for="last_name">Last name</label> #}
+																																				<label for="last_name">Last name</label> #}
 						{{ form_widget(form.lastName) }}
 						{{ form_label(form.lastName) }}
 						{{ form_errors(form.lastName) }}
@@ -116,7 +175,7 @@
 					<div
 						class="input-field">
 						{# <input id="current_location" name="current_location" type="text" value="">
-																								<label for="current_location">Current location</label> #}
+																																				<label for="current_location">Current location</label> #}
 						{{ form_widget(form.currentLocation) }}
 						{{ form_label(form.currentLocation) }}
 						{{ form_errors(form.currentLocation) }}
@@ -128,7 +187,7 @@
 					<div
 						class="input-field">
 						{# <input id="address" name="address" type="text" value="">
-																								<label for="address">Address</label> #}
+																																				<label for="address">Address</label> #}
 						{{ form_widget(form.address) }}
 						{{ form_label(form.address) }}
 						{{ form_errors(form.address) }}
@@ -173,7 +232,7 @@
 							<div
 								class="input-field">
 								{# <input id="country" name="country" type="text" value="">
-																																<label for="country">Country</label> #}
+																																																<label for="country">Country</label> #}
 								{{ form_widget(form.country) }}
 								{{ form_label(form.country) }}
 								{{ form_errors(form.country) }}
@@ -185,7 +244,7 @@
 							<div
 								class="input-field">
 								{# <input id="nationality" name="nationality" type="text" value="">
-																																<label for="nationality">Nationality</label> #}
+																																																<label for="nationality">Nationality</label> #}
 								{{ form_widget(form.nationality) }}
 								{{ form_label(form.nationality) }}
 								{{ form_errors(form.nationality) }}
