@@ -75,6 +75,9 @@ class Candidate
     #[ORM\ManyToOne(inversedBy: 'candidates')]
     private ?Experience $experience = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
@@ -298,6 +301,18 @@ class Candidate
     public function setExperience(?Experience $experience): static
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

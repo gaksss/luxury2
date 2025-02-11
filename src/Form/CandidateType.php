@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -182,6 +183,14 @@ class CandidateType extends AbstractType
                     'class' => 'active',
                 ],
                 'placeholder' => 'Choose an option...',
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'description',
+                ],
+                'label' => 'Short description for your profile, as well as more informations ( e.g your hobbies/interests ). You can also paste any link you want.',
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdatedAt(...))
 
