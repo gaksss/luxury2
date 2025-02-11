@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Experience;
 use App\Entity\Gender;
+use App\Entity\JobTitle;
 use App\Entity\User;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -154,6 +156,32 @@ class CandidateType extends AbstractType
                     'accept' => '.pdf,.xpdf',
                     'id' => 'cv',
                 ]
+            ])
+            ->add('jobSector', EntityType::class, [
+                'class' => JobTitle::class,
+                'choice_label' => 'title',
+                'required' => false,
+                'attr' => [
+                    'id' => 'jobSector',
+                ],
+                'label' => 'Job Sector',
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+                'placeholder' => 'Choose an option...',
+            ])
+            ->add('experience', EntityType::class, [
+                'class' => Experience::class,
+                'choice_label' => 'name',
+                'required' => false,
+                'attr' => [
+                    'id' => 'experience',
+                ],
+                'label' => 'Experience',
+                'label_attr' => [
+                    'class' => 'active',
+                ],
+                'placeholder' => 'Choose an option...',
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, $this->setUpdatedAt(...))
 

@@ -69,6 +69,12 @@ class Candidate
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?JobTitle $jobSector = null;
+
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Experience $experience = null;
+
     public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable(), DateTimeImmutable $updatedAt = new DateTimeImmutable())
     {
         $this->createdAt = $createdAt;
@@ -268,6 +274,30 @@ class Candidate
     public function setCv(?string $cv): static
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function getJobSector(): ?JobTitle
+    {
+        return $this->jobSector;
+    }
+
+    public function setJobSector(?JobTitle $jobSector): static
+    {
+        $this->jobSector = $jobSector;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): static
+    {
+        $this->experience = $experience;
 
         return $this;
     }
