@@ -8,6 +8,7 @@ use App\Entity\User;
 use DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +30,62 @@ class CandidateType extends AbstractType
                 ],
                 'label' => 'First name',
             ])
-
+            ->add('lastName', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'last_name',
+                ],
+                'label' => 'Last name',
+            ])
+            ->add('currentLocation', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'currentLocation',
+                ],
+                'label' => 'Current location',
+            ])
+            ->add('address', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'address',
+                ],
+                'label' => 'Address',
+            ])
+            ->add('country', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'country',
+                ],
+                'label' => 'Country',
+            ])
+            ->add('nationality', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'nationality',
+                ],
+                'label' => 'Nationality',
+            ])
+            ->add('birthdate', DateType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'birthdate',
+                ],
+                'label' => 'Birthdate',
+            ])
+            ->add('birthplace', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'id' => 'birthplace',
+                ],
+                'label' => 'Birthplace',
+            ])
             ->add('gender', EntityType::class, [
                 'class' => Gender::class,
                 'choice_label' => 'name',
@@ -43,7 +99,7 @@ class CandidateType extends AbstractType
                 ],
                 'placeholder' => 'Choose an option...',
             ])
-            ->add('profilePictureFile', FileType::class,[
+            ->add('profilePictureFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
