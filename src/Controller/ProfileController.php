@@ -22,31 +22,42 @@ final class ProfileController extends AbstractController
 
         $candidate = $user->getCandidate();
 
-        if(!$candidate){
+        if (!$candidate) {
             $candidate = new Candidate();
             $candidate->setUser($user);
             $entityManager->persist($candidate);
             $entityManager->flush();
         }
 
-        if(!$user->isVerified())
-        {
-            return $this->render('errors/not-verified.html.twig', [
-            
-            ]);
+        if (!$user->isVerified()) {
+            return $this->render('errors/not-verified.html.twig', []);
         }
 
         $formCandidate = $this->createForm(CandidateType::class, $candidate);
         $formCandidate->handleRequest($request);
 
-        if($formCandidate->isSubmitted() && $formCandidate->isValid()){
+        if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             // dd($candidate);
             $profilPictureFile = $formCandidate->get('profilePictureFile')->getData();
+            $passportFile = $formCandidate->get('passportFile')->getData();
+            $cvFile = $formCandidate->get('cvFile')->getData();
             // dd($profilPictureFile);
 
-            if($profilPictureFile){
+
+            if ($profilPictureFile) {
                 $profilPictureName = $fileUploader->upload($profilPictureFile, $candidate, 'profilePicture', 'profile_pictures');
                 $candidate->setProfilePicture($profilPictureName);
+            }
+
+
+            if ($passportFile) {
+                $passportName = $fileUploader->upload($passportFile, $candidate, 'passport', 'passports');
+                $candidate->setPassport($passportName);
+            }
+
+            if ($cvFile) {
+                $cvName = $fileUploader->upload($cvFile, $candidate, 'cv', 'cvs');
+                $candidate->setCv($cvName);
             }
 
             $entityManager->persist($candidate);
@@ -55,13 +66,13 @@ final class ProfileController extends AbstractController
             $this->addFlash('success', 'Profile updated successfully');
         }
 
-        
+
 
 
         return $this->render('profile/index.html.twig', [
             'form' => $formCandidate->createView(),
             'candidate' => $candidate,
-        
+
         ]);
     }
 }
