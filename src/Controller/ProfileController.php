@@ -6,6 +6,7 @@ use App\Entity\Candidate;
 use App\Entity\User;
 use App\Form\CandidateType;
 use App\Form\ChangePasswordType;
+use App\Service\CandidatProgress;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,12 +19,12 @@ final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
     public function index(
-        EntityManagerInterface $entityManager, 
-        Request $request, 
+        EntityManagerInterface $entityManager,
+        Request $request,
         FileUploader $fileUploader,
-        UserPasswordHasherInterface $passwordHasher
-    ): Response
-    {
+        UserPasswordHasherInterface $passwordHasher,
+        CandidatProgress $progressionService
+    ): Response {
         /** @var User */
         $user = $this->getUser();
 
@@ -42,6 +43,13 @@ final class ProfileController extends AbstractController
 
         $formCandidate = $this->createForm(CandidateType::class, $candidate);
         $formCandidate->handleRequest($request);
+       
+        // dump($request->request->all());
+        // dump($formCandidate->getName());
+        // die();
+
+
+
 
         if ($formCandidate->isSubmitted() && $formCandidate->isValid()) {
             // dd($candidate);
@@ -79,22 +87,39 @@ final class ProfileController extends AbstractController
 
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
             $newPassword = $passwordForm->get('newPassword')->getData();
-            
+
             $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
             $user->setPassword($hashedPassword);
-            
+
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash('success', 'Password updated successfully');
-            
+
             return $this->redirectToRoute('app_profile');
         }
+        $requiredFields = [
+            'firstName',
+            'lastName',
+            'currentLocation',
+            'address',
+            'country',
+            'nationality',
+            'birthdate',
+            'birthplace',
+            'gender',
+            'jobSector',
+            'experience',
+            'description'
+        ];
+
+        $progression = $progressionService->calculateProgress($candidate, $requiredFields);
 
         return $this->render('profile/index.html.twig', [
             'form' => $formCandidate->createView(),
             'passwordForm' => $passwordForm->createView(),
             'candidate' => $candidate,
+            'progression' => $progression
         ]);
     }
 }
