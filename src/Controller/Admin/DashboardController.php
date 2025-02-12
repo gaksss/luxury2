@@ -52,6 +52,9 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+
+// Faire un $this->getUser()->getRole() pour récuperer les infos du user et après faire un affichage en fonction du role
+       
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-tachometer-alt');
 
         yield MenuItem::section('Jobs');

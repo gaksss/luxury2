@@ -41,8 +41,6 @@ class CandidateCrudController extends AbstractCrudController
             // BooleanField::new('availibility'),
             DateField::new('birthDate'),
             AssociationField::new('experience')->autocomplete(),
-
-
             TextField::new('profilePicture'),
             TextField::new('cv'),
             TextField::new('passport'),
