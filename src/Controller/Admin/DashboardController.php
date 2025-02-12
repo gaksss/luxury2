@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Candidate;
 use App\Entity\Experience;
 use App\Entity\Gender;
 use App\Entity\JobTitle;
@@ -62,7 +63,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Experiences', 'fas fa-hourglass', Experience::class);
         
         
-        yield MenuItem::section('Recruters');
-        yield MenuItem::linkToCrud('Recruters', 'fas fa-user-tie', User::class);
+        yield MenuItem::section('Users');
+        yield MenuItem::linkToCrud('users', 'fas fa-user-tie', User::class);
+        yield MenuItem::linkToCrud('candidates', 'fas fa-user-tie', Candidate::class);
     }
 }

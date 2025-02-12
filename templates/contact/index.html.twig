@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
 
 	<!-- Page Header-->
@@ -111,6 +112,26 @@
 		</div>
 	</section>
 	{{ form_end(form) }}
-	<div id="myMap" class="height-350">Gmap here</div>
+
+	{# MAP #}
+	<div id="map" style="height: 350px;">
+
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+var map = L.map('map').setView([
+45.4386, 4.3871
+], 15); // Zoom niveau 15
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+maxZoom: 19,
+attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+L.marker([45.4378103, 4.381062]).addTo(map).bindPopup('Bienvenue').openPopup();
+});
+		</script>
+	</div>
+
 
 {% endblock %}

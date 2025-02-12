@@ -14,6 +14,8 @@
 		name="csrf-token" content="utSEZUUxgneXBCQY5My9Djz8rVhqLiG7PLq3ThDA">
 		<!--  favicon -->
 		<link rel="shortcut icon" href="{{ asset('img/luxury-services-logo.png') }}">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 		<script>
 			window.isMobile = (function () {
@@ -151,8 +153,8 @@ $(handler);
 							<ul class="menuzord-menu pull-right light" role="navigation">
 
 								{% if app.user %}
-									<li class="{{ app.current_route is same as('app_profile')  ? 'active' : '' }} dropdown">
-										<a target="_self" href="{{ path('app_profile') }}" >
+									<li class="{{ app.current_route is same as('app_profile') ? 'active' : '' }} dropdown">
+										<a target="_self" href="{{ path('app_profile') }}">
 											<span>Profile</span>
 										</a>
 									</li>
@@ -165,8 +167,8 @@ $(handler);
 								{% else %}
 
 
-									<li class="{{ app.current_route is same as('app_login')  ? 'active' : '' }} dropdown">
-										<a target="_self" href="{{ path('app_login') }}" >
+									<li class="{{ app.current_route is same as('app_login') ? 'active' : '' }} dropdown">
+										<a target="_self" href="{{ path('app_login') }}">
 											<span>Login</span>
 										</a>
 									</li>
@@ -179,25 +181,25 @@ $(handler);
 								{% endif %}
 							</ul>
 							<ul class="menuzord-menu pull-right light" role="navigation">
-								<li class="{{ app.current_route is same as('app_home')  ? 'active' : '' }} dropdown">
+								<li class="{{ app.current_route is same as('app_home') ? 'active' : '' }} dropdown">
 									<a target="_self" href="{{ path('app_home') }}">
 										<i class=""></i>
 										<span>Home</span>
 									</a>
 								</li>
-								<li class="{{ app.current_route is same as('app_job')  ? 'active' : '' }} dropdown">
+								<li class="{{ app.current_route is same as('app_job') ? 'active' : '' }} dropdown">
 									<a target="_self" href="{{ path('app_job') }}">
 										<i class=""></i>
 										<span>Jobs offers</span>
 									</a>
 								</li>
-								<li class="{{ app.current_route is same as('app_company')  ? 'active' : '' }} dropdown">
+								<li class="{{ app.current_route is same as('app_company') ? 'active' : '' }} dropdown">
 									<a target="_self" href="{{ path('app_company') }}">
 										<i class=""></i>
 										<span>About us</span>
 									</a>
 								</li>
-								<li class="{{ app.current_route is same as('app_contact')  ? 'active' : '' }} dropdown">
+								<li class="{{ app.current_route is same as('app_contact') ? 'active' : '' }} dropdown">
 									<a target="_self" href="{{ path('app_contact') }}">
 										<i class=""></i>
 										<span>Contact</span>
