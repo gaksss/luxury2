@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\JobOffer;
+use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -24,7 +26,7 @@ class JobOfferCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+           
             TextField::new('title'),
             TextareaField::new('description'),
             TextField::new('location'),
@@ -35,8 +37,16 @@ class JobOfferCrudController extends AbstractCrudController
             AssociationField::new('category')->autocomplete(),
             BooleanField::new('activated'),
             DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
-            DateTimeField::new('deletedAt')->hideOnForm()
+            // DateTimeField::new('updatedAt')->hideOnForm(),
+           
         ];
     }
+
+    // public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    // {
+    //     /** @var JobOffer $entityInstance */
+    //     $entityInstance->setUpdatedAt(new DateTimeImmutable());
+    //     $entityManager->persist($entityInstance);
+    //     $entityManager->flush();
+    // }
 }

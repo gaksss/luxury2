@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\JobOfferRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,8 +24,7 @@ class JobOffer
     #[ORM\Column]
     private ?bool $activated = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $notes = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -49,7 +49,10 @@ class JobOffer
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-
+public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable())
+{
+    $this->createdAt = $createdAt;
+}
 
     public function __toString()
     {
@@ -106,17 +109,7 @@ class JobOffer
         return $this;
     }
 
-    public function getNotes(): ?string
-    {
-        return $this->notes;
-    }
 
-    public function setNotes(string $notes): static
-    {
-        $this->notes = $notes;
-
-        return $this;
-    }
 
     public function getTitle(): ?string
     {

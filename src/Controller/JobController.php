@@ -23,9 +23,14 @@ final class JobController extends AbstractController
         ]);
     }
 
-    #[Route('/job/{slug}', name: 'app_job_show')]
-    public function show(): Response
+    #[Route('/job/{id}', name: 'app_job_show')]
+    public function show(int $id): Response
     {
-        return $this->render('job/show.html.twig', []);
+
+        $job = $this->jobOfferRepository->find($id);
+
+        return $this->render('job/show.html.twig', [
+            'job' => $job
+        ]);
     }
 }
