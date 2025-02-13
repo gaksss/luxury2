@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Candidate;
 use App\Entity\Experience;
 use App\Entity\Gender;
+use App\Entity\JobOffer;
 use App\Entity\JobTitle;
+use App\Entity\JobType;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -46,26 +48,30 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Luxury Services')
-            ->setFaviconPath('img/luxury-services-logo.png');
+            ->setTitle('<a href="/" style="color: inherit; text-decoration: none;">Luxury Services</a>')
+            ->setFaviconPath('img/luxury-services-logo.png')
+
+        ;
     }
 
     public function configureMenuItems(): iterable
     {
 
-// Faire un $this->getUser()->getRole() pour récuperer les infos du user et après faire un affichage en fonction du role
-       
+        // Faire un $this->getUser()->getRole() pour récuperer les infos du user et après faire un affichage en fonction du role
+
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-tachometer-alt');
 
         yield MenuItem::section('Jobs');
         yield MenuItem::linkToCrud('JobsTitles', 'fas fa-briefcase', JobTitle::class);
+        yield MenuItem::linkToCrud('JobsType', 'fas fa-briefcase', JobType::class);
+        yield MenuItem::linkToCrud('JobsOffers', 'fas fa-briefcase', JobOffer::class);
 
 
         yield MenuItem::section('Candidates');
         yield MenuItem::linkToCrud('Genders', 'fas fa-venus-mars', Gender::class);
         yield MenuItem::linkToCrud('Experiences', 'fas fa-hourglass', Experience::class);
-        
-        
+
+
         yield MenuItem::section('Users');
         yield MenuItem::linkToCrud('users', 'fas fa-user-tie', User::class);
         yield MenuItem::linkToCrud('candidates', 'fas fa-user-tie', Candidate::class);
