@@ -27,20 +27,22 @@ class JobOfferCrudController extends AbstractCrudController
     {
         return [
            
-            TextField::new('title'),
-            TextareaField::new('description'),
-            TextField::new('location'),
-            TextField::new('salary'),
-            DateTimeField::new('endOfContract'),
-            AssociationField::new('type')->autocomplete(),
+            TextField::new('title'),                           
+            TextareaField::new('description'),                 
+            TextField::new('location'),                        
+            TextField::new('salary'),                          
+            DateTimeField::new('endOfContract'),               
+            AssociationField::new('type')->autocomplete(),     
             AssociationField::new('recruiter')->autocomplete(),
-            AssociationField::new('category')->autocomplete(),
-            BooleanField::new('activated'),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            // DateTimeField::new('updatedAt')->hideOnForm(),
+            AssociationField::new('category')->autocomplete(), 
+            BooleanField::new('activated'),                    
+            DateTimeField::new('createdAt')->hideOnForm(),     
+            // DateTimeField::new('updatedAt')->hideOnForm(),   
            
         ];
     }
+
+ 
 
     // public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     // {

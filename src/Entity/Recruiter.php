@@ -43,6 +43,9 @@ class Recruiter
     #[ORM\OneToMany(targetEntity: JobOffer::class, mappedBy: 'recruiter')]
     private Collection $jobOffers;
 
+    #[ORM\OneToOne(inversedBy: 'recruiter', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->jobOffers = new ArrayCollection();
@@ -163,6 +166,18 @@ class Recruiter
                 $jobOffer->setRecruiter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

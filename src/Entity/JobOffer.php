@@ -49,6 +49,9 @@ class JobOffer
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jobOffers')]
+    private ?User $user = null;
+
 public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable())
 {
     $this->createdAt = $createdAt;
@@ -193,6 +196,18 @@ public function __construct(DateTimeImmutable $createdAt = new DateTimeImmutable
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

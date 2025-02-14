@@ -8,6 +8,7 @@ use App\Entity\Gender;
 use App\Entity\JobOffer;
 use App\Entity\JobTitle;
 use App\Entity\JobType;
+use App\Entity\Recruiter;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -62,18 +63,19 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-tachometer-alt');
 
         yield MenuItem::section('Jobs');
-        yield MenuItem::linkToCrud('JobsTitles', 'fas fa-briefcase', JobTitle::class);
-        yield MenuItem::linkToCrud('JobsType', 'fas fa-briefcase', JobType::class);
+        yield MenuItem::linkToCrud('JobsTitles', 'fas fa-briefcase', JobTitle::class)->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('JobsType', 'fas fa-briefcase', JobType::class)->setPermission("ROLE_ADMIN");
         yield MenuItem::linkToCrud('JobsOffers', 'fas fa-briefcase', JobOffer::class);
 
 
-        yield MenuItem::section('Candidates');
-        yield MenuItem::linkToCrud('Genders', 'fas fa-venus-mars', Gender::class);
-        yield MenuItem::linkToCrud('Experiences', 'fas fa-hourglass', Experience::class);
+        yield MenuItem::section('Candidates')->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('Genders', 'fas fa-venus-mars', Gender::class)->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('Experiences', 'fas fa-hourglass', Experience::class)->setPermission("ROLE_ADMIN");
 
 
-        yield MenuItem::section('Users');
-        yield MenuItem::linkToCrud('users', 'fas fa-user-tie', User::class);
-        yield MenuItem::linkToCrud('candidates', 'fas fa-user-tie', Candidate::class);
+        yield MenuItem::section('Users')->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('users', 'fas fa-user-tie', User::class)->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('candidates', 'fas fa-user-tie', Candidate::class)->setPermission("ROLE_ADMIN");
+        yield MenuItem::linkToCrud('recruiters', 'fas fa-user-tie', Recruiter::class)->setPermission("ROLE_ADMIN");
     }
 }

@@ -154,7 +154,7 @@ $(handler);
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="menuzord-menu pull-right light" role="navigation">
 
-								{% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+								{% if app.user and 'ROLE_ADMIN' or app.user and 'ROLE_RECRUITER' in app.user.roles %}
 									<li class="{{ app.current_route is same as('app_admin_dashboard_index') ? 'active' : '' }} dropdown">
 										<a target="_self" href="{{ path('app_admin_dashboard_index') }}">
 											<span>Dashboard</span>
